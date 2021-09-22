@@ -33,46 +33,43 @@ function getDogPics() {
   wikiImg.className = "wiki-img";
 
   //get breaqds
-  /*let urlBreeds = "https://dog.ceo/api/breeds/list/all";
+  let urlBreeds = "https://dog.ceo/api/breeds/list/all";
   fetch(urlBreeds)
     .then((res) => res.json())
     .then((data) => {
       //get random number to get a breed
       const count = Math.floor(
         Math.random() * Object.keys(data.message).length
-      );*/
-  wikiHeader.innerHTML =
-    "groenendael"; /*Object.keys(data.message)[
-        parseInt(count, 10)
-      ].toUpperCase();*/
-  //get picture for the breed
-  let urlPic =
-    "https://dog.ceo/api/breed/" +
-    /*Object.keys(data.message)[parseInt(count, 10)]*/ "groenendael" +
-    "/images/random";
+      );
+      wikiHeader.innerHTML = Object.keys(data.message)[parseInt(count, 10)];
+      //get picture for the breed
+      let urlPic =
+        "https://dog.ceo/api/breed/" +
+        Object.keys(data.message)[parseInt(count, 10)] +
+        "/images/random";
 
-  fetch(urlPic, { method: "GET" })
-    .then((response) => response.json())
-    .then((getpic) => {
-      let pic = getpic;
-      wikiImg.src = pic.message;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      fetch(urlPic, { method: "GET" })
+        .then((response) => response.json())
+        .then((getpic) => {
+          let pic = getpic;
+          wikiImg.src = pic.message;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
 
-  //get text from wikipedia
-  let wikiUrl =
-    "https://en.wikipedia.org/api/rest_v1/page/summary/" + "groenendael";
-  /*Object.keys(data.message)[parseInt(count, 10)]*/ fetch(wikiUrl, {
-    method: "GET"
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      textPara.innerHTML = data.extract;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+      //get text from wikipedia
+      let wikiUrl =
+        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        Object.keys(data.message)[parseInt(count, 10)];
+      fetch(wikiUrl, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => {
+          textPara.innerHTML = data.extract;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     });
 
   //console.log(Object.keys(all.message).length);
