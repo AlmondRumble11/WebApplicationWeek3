@@ -14,7 +14,7 @@ function initializeCode() {
   }
 }
 
-async function getDogPics() {
+function getDogPics() {
   const containerDiv = document.createElement("div");
   const itemDiv = document.createElement("div");
   const contentDiv = document.createElement("div");
@@ -34,45 +34,45 @@ async function getDogPics() {
 
   //get breaqds
   let urlBreeds = "https://dog.ceo/api/breeds/list/all";
-  let res = await fetch(urlBreeds).catch((error) => {
-    console.log("Error:", error);
-  });
-  res.json().then((data) => {
-    const count = Math.floor(Math.random() * Object.keys(data.message).length);
-    wikiHeader.innerHTML = Object.keys(data.message)[
-      parseInt(count, 10)
-    ].toUpperCase();
-    //get picture for the breed
-    let urlPic =
-      "https://dog.ceo/api/breed/" +
-      Object.keys(data.message)[parseInt(count, 10)] +
-      "/images/random";
+  fetch(urlBreeds)
+    .then((res) => res.json())
+    .then((data) => {
+      //get random number to get a breed
+      const count = Math.floor(
+        Math.random() * Object.keys(data.message).length
+      );
+      wikiHeader.innerHTML = Object.keys(data.message)[
+        parseInt(count, 10)
+      ].toUpperCase();
+      //get picture for the breed
+      let urlPic =
+        "https://dog.ceo/api/breed/" +
+        Object.keys(data.message)[parseInt(count, 10)] +
+        "/images/random";
 
-    fetch(urlPic, { method: "GET" })
-      .then((response) => response.json())
-      .then((getpic) => {
-        let pic = getpic;
-        wikiImg.src = pic.message;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      fetch(urlPic, { method: "GET" })
+        .then((response) => response.json())
+        .then((getpic) => {
+          let pic = getpic;
+          wikiImg.src = pic.message;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
 
-    //get text from wikipedia
-    let wikiUrl =
-      "https://en.wikipedia.org/api/rest_v1/page/summary/" +
-      Object.keys(data.message)[parseInt(count, 10)];
-    fetch(wikiUrl, { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => {
-        textPara.innerHTML = data.extract;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  });
-
-  //get random number to get a breed
+      //get text from wikipedia
+      let wikiUrl =
+        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        Object.keys(data.message)[parseInt(count, 10)];
+      fetch(wikiUrl, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => {
+          textPara.innerHTML = data.extract;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
 
   //console.log(Object.keys(all.message).length);
 
