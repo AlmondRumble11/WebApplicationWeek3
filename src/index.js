@@ -37,7 +37,7 @@ async function getDogPics() {
   let res = await fetch(urlBreeds);
   let all = await res.json();
   //get random number to get a breed
-  const count = Math.floor(Math.random() * Object.keys(all.message).length);
+  /*const count = Math.floor(Math.random() * Object.keys(all.message).length);
   //console.log(Object.keys(all.message).length);
 
   wikiHeader.innerHTML = Object.keys(all.message)[
@@ -70,7 +70,7 @@ async function getDogPics() {
     })
     .catch((error) => {
       console.error("Error:", error);
-    });
+    });*/
 
   //combine all
   itemDiv.appendChild(wikiHeader);
