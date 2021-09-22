@@ -37,43 +37,44 @@ async function getDogPics() {
   let res = await fetch(urlBreeds).catch((error) => {
     console.log("Error:", error);
   });
-  let all = await res.json();
+  res.json().then((data) => {
+    const count = Math.floor(Math.random() * Object.keys(data.message).length);
+    wikiHeader.innerHTML = Object.keys(data.message)[
+      parseInt(count, 10)
+    ].toUpperCase();
+    //get picture for the breed
+    let urlPic =
+      "https://dog.ceo/api/breed/" +
+      Object.keys(data.message)[parseInt(count, 10)] +
+      "/images/random";
+
+    fetch(urlPic, { method: "GET" })
+      .then((response) => response.json())
+      .then((getpic) => {
+        let pic = getpic;
+        wikiImg.src = pic.message;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    //get text from wikipedia
+    let wikiUrl =
+      "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+      Object.keys(data.message)[parseInt(count, 10)];
+    fetch(wikiUrl, { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        textPara.innerHTML = data.extract;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
 
   //get random number to get a breed
-  const count = Math.floor(Math.random() * Object.keys(all.message).length);
+
   //console.log(Object.keys(all.message).length);
-
-  wikiHeader.innerHTML = Object.keys(all.message)[
-    parseInt(count, 10)
-  ].toUpperCase();
-
-  //get picture for the breed
-  let urlPic =
-    "https://dog.ceo/api/breed/" +
-    Object.keys(all.message)[parseInt(count, 10)] +
-    "/images/random";
-  fetch(urlPic, { method: "GET" })
-    .then((response) => response.json())
-    .then((getpic) => {
-      let pic = getpic;
-      wikiImg.src = pic.message;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
-  //get text from wikipedia
-  let wikiUrl =
-    "https://en.wikipedia.org/api/rest_v1/page/summary/" +
-    Object.keys(all.message)[parseInt(count, 10)];
-  fetch(wikiUrl, { method: "GET" })
-    .then((response) => response.json())
-    .then((data) => {
-      textPara.innerHTML = data.extract;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
 
   //combine all
   itemDiv.appendChild(wikiHeader);
