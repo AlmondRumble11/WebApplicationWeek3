@@ -34,10 +34,13 @@ async function getDogPics() {
 
   //get breaqds
   let urlBreeds = "https://dog.ceo/api/breeds/list/all";
-  let res = await fetch(urlBreeds);
+  let res = await fetch(urlBreeds).catch((error) => {
+    console.log("Error:", error);
+  });
   let all = await res.json();
+
   //get random number to get a breed
-  /*const count = Math.floor(Math.random() * Object.keys(all.message).length);
+  const count = Math.floor(Math.random() * Object.keys(all.message).length);
   //console.log(Object.keys(all.message).length);
 
   wikiHeader.innerHTML = Object.keys(all.message)[
@@ -70,7 +73,7 @@ async function getDogPics() {
     })
     .catch((error) => {
       console.error("Error:", error);
-    });*/
+    });
 
   //combine all
   itemDiv.appendChild(wikiHeader);
