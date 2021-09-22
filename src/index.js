@@ -33,23 +33,9 @@ function getDogPics(dog) {
   textPara.className = "wiki-text";
   wikiImg.className = "wiki-img";
 
-  //get breaqds
-  /*let urlBreeds = "https://dog.ceo/api/breeds/list/all";
-  fetch(urlBreeds)
-    .then((res) => res.json())
-    .then((data) => {
-      //get random number to get a breed
-      const count = Math.floor(
-        Math.random() * Object.keys(data.message).length
-      );*/
-  wikiHeader.innerHTML = dog; /*Object.keys(data.message)[
-        parseInt(count, 10)
-      ].toUpperCase();*/
+  wikiHeader.innerHTML = dog;
   //get picture for the breed
-  let urlPic =
-    "https://dog.ceo/api/breed/" +
-    /*Object.keys(data.message)[parseInt(count, 10)]*/ dog +
-    "/images/random";
+  let urlPic = "https://dog.ceo/api/breed/" + dog + "/images/random";
 
   fetch(urlPic, { method: "GET" })
     .then((response) => response.json())
@@ -63,7 +49,7 @@ function getDogPics(dog) {
 
   //get text from wikipedia
   let wikiUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + dog;
-  /*Object.keys(data.message)[parseInt(count, 10)]*/ fetch(wikiUrl, {
+  fetch(wikiUrl, {
     method: "GET"
   })
     .then((response) => response.json())
